@@ -1,0 +1,651 @@
+/*
+ * Globals
+ */
+/* fonts */
+@font-face {
+  font-family: "ComicRelief";
+  src: url("../fonts/ComicRelief-Regular.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "ComicRelief";
+  src: url("../fonts/ComicRelief-Bold.ttf") format("truetype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+
+/* Custom default button */
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritance from `body` */
+}
+
+
+body.loader-lock {
+  overflow: hidden !important;
+}
+
+
+/*
+ * tipograia
+ */
+:root{
+  --bs-body-font-family: "ComicRelief", system-ui, -apple-system, "Segoe UI",
+                         Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --bs-body-font-weight: 400;
+}
+
+h1, h2, h3, .display-1, .display-2, .display-3{
+  font-family: "ComicRelief", var(--bs-body-font-family);
+  font-weight: 700;
+}
+
+
+:root{
+  /* Candy */
+  --c-strawberry:#ff4d6d; --c-mango:#ffbf69; --c-lime:#2ec4b6; --c-blue:#4d9de0; --c-grape:#b57edc;
+  --c-mint:#34d399; --c-sky:#38bdf8; --c-sun:#facc15; --c-coral:#fb7185; --c-lav:#a78bfa;
+
+  /* Básicos */
+  --c-black:#111827; --c-gray:#6b7280; --c-silver:#9ca3af; --c-white:#ffffff;
+
+  /* Neón */
+  --c-neon-pink:#ff00c8; --c-neon-green:#39ff14; --c-neon-blue:#00e5ff; --c-neon-yellow:#f7ff00;
+}
+
+/* Texto: candy */
+.text-strawberry{ color: var(--c-strawberry)!important; }
+.text-mango     { color: var(--c-mango)!important; }
+.text-lime      { color: var(--c-lime)!important; }
+.text-blue      { color: var(--c-blue)!important; }
+.text-grape     { color: var(--c-grape)!important; }
+.text-mint      { color: var(--c-mint)!important; }
+.text-sky       { color: var(--c-sky)!important; }
+.text-sun       { color: var(--c-sun)!important; }
+.text-coral     { color: var(--c-coral)!important; }
+.text-lav       { color: var(--c-lav)!important; }
+
+/* Texto: básicos */
+.text-black { color: var(--c-black)!important; }
+.text-gray  { color: var(--c-gray)!important; }
+.text-silver{ color: var(--c-silver)!important; }
+.text-white { color: var(--c-white)!important; }
+
+/* Texto: neón (con glow opcional) */
+.text-neon-pink  { color: var(--c-neon-pink)!important; }
+.text-neon-green { color: var(--c-neon-green)!important; }
+.text-neon-blue  { color: var(--c-neon-blue)!important; }
+.text-neon-yellow{ color: var(--c-neon-yellow)!important; }
+.glow            { text-shadow: 0 0 .50em currentColor, 0 0 .1em currentColor; }
+
+/* Tonos suaves (pastel) – útil para subtítulos */
+.text-pastel-rose  { color:#f8a5c2!important; }
+.text-pastel-peach { color:#f6b093!important; }
+.text-pastel-mint  { color:#a3e4d7!important; }
+.text-pastel-sky   { color:#9fd3ff!important; }
+.text-pastel-lila  { color:#c7b8ff!important; }
+
+/* Utilidades extra */
+.text-shadow-sm { text-shadow: 0 1px 0 rgba(0,0,0,.15); }
+.text-shadow-md { text-shadow: 0 2px 6px rgba(0,0,0,.25); }
+.opacity-80     { opacity:.8; }
+.opacity-60     { opacity:.6; }
+
+/* Texto con degradado (para titulares) */
+.text-gradient-candy{
+  background: linear-gradient(90deg, var(--c-strawberry), var(--c-mango), var(--c-lime), var(--c-blue), var(--c-grape));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.text-gradient-sunset{
+  background: linear-gradient(90deg, #ff7eb3, #ff758c, #ffb16a);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.text-gradient-ocean{
+  background: linear-gradient(90deg, #00e5ff, #2ec4b6, #4d9de0);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+
+
+/* Contenedor del hero */
+.hero{
+  min-height: 100vh;
+  display: flex;
+ 
+  justify-content: center;
+  text-align: center;
+  padding: 4vmin 2rem;
+  z-index:2500;
+}
+.hero-inner{ max-width: 98vw; margin-inline: auto; }
+
+/* ==== MÓVIL (mobile-first): permite múltiples líneas ==== */
+.hero-title {
+  margin-inline: auto;
+  white-space: normal !important;
+  overflow-wrap: anywhere;     /* evita desbordes */
+  hyphens: auto;               /* guiones automáticos (lang="es" ya está) */
+  text-wrap: balance;          /* mejores cortes de línea (navegadores modernos) */
+}
+
+
+.hero-title2{
+  font-family: "ComicRelief", system-ui, sans-serif;
+  font-weight: 700;
+  /* crece con el viewport, pero con límites razonables en móvil */
+  font-size: clamp(22px, 6vw, 44px);
+  line-height: 1.05;
+  white-space: normal;     /* <-- permite salto de línea */
+
+  margin: 0 auto .75rem;
+  text-wrap: balance;
+}
+
+
+.hero-subtitle{
+  font-size: clamp(16px, 4.2vw, 28px);
+  line-height: 1.25;
+  max-width: 90vw;
+  margin: 0 auto 1.25rem;
+}
+
+/* SM y MD: puedes subir un poco más el tamaño si deseas
+@media (min-width: 576px){
+  .hero-title{ font-size: clamp(36px, 9vw, 80px); }
+  .hero-subtitle{ font-size: clamp(18px, 3.8vw, 32px); }
+} */
+
+/* ==== DESKTOP (≥ 992px): una sola línea y centrado visual ==== */
+/* desktop: ancho máximo 80% del viewport, centrado y más grande */
+@media (min-width: 992px){
+  .hero-inner{
+    max-width: 80vw;            /* contenedor al 80% del viewport */
+  }
+  .hero-title{
+    max-width: 80vw;            /* el propio h1 también al 80% */
+    margin-left: auto;
+    margin-right: auto;         /* centrado */
+    white-space: normal;        /* permite saltos de línea */
+    font-size: clamp(32px, 5vw, 64px);  /* grande pero sin desbordar */
+    line-height: .98;
+  }
+  .hero-title2{
+    max-width: 80vw;            /* el propio h1 también al 80% */
+    margin-left: auto;
+    margin-right: auto;         /* centrado */
+    white-space: normal;        /* permite saltos de línea */
+    font-size: clamp(20px, 4vw, 40px);  /* grande pero sin desbordar */
+    line-height: .98;
+  }
+  
+  .hero-subtitle{
+    max-width: 70vw;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(20px, 2.2vw, 36px);
+  }
+}
+
+/* Móvil: ANCHO CASI COMPLETO y padding mínimo */
+@media (max-width: 768px) {
+  /* reduce padding del contenedor si lo hubiera */
+  .cover-container,
+  .hero {
+    padding-left: 2vw !important;
+    padding-right: 2vw !important;
+  }
+
+  .hero-title {
+    max-width: 98vw !important;   /* ancho casi total */
+    padding: 0 1vw;               /* márgenes laterales muy pequeños */
+    font-size: clamp(1.25rem, 5.5vw, 2rem);
+    line-height: 1.15;            /* compacto sin perder legibilidad */
+    letter-spacing: 0.2px;        /* un pelín más junto */
+  }
+}
+
+/* Muy pequeño (≤480px): aun más ancho y ajuste fino */
+@media (max-width: 480px) {
+  .hero-title {
+    max-width: 100vw !important;  /* usa todo el ancho disponible */
+    padding: 0 1vw;
+    font-size: clamp(1.15rem, 6vw, 1.8rem);
+    line-height: 1.12;
+  }
+}
+
+
+
+/* Quita el límite de ancho que impone el plugin en modo fixed */
+h1.hero-title[data-mode="fixed"] {
+  width: 96vw;                 /* ocupa casi todo el ancho visible */
+  max-width: 96vw !important;  /* fuerza a ignorar límites del plugin */
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 2vw;              /* pequeño resguardo lateral */
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+
+/* En desktop puedes ser un poco más estrecho si quieres */
+@media (min-width: 992px) {
+  h1.hero-title[data-mode="fixed"] {
+    width: 80vw;
+    max-width: 80vw !important;
+    padding: 0 1vw;
+  }
+}
+
+
+
+
+.tr-letter { color: inherit; }
+.tr-letter, .tr-word { will-change: transform, opacity; }
+
+
+
+/* ==== Forzar visibilidad según tamaño de pantalla ==== */
+
+/* Por defecto: solo se muestra la versión de escritorio */
+.only-desktop {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.only-mobile {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* En pantallas de hasta 991.98px (móvil): invierte visibilidad */
+@media (max-width: 991.98px) {
+  .only-desktop {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+
+  .only-mobile {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+/*
+ * Base structure
+ */
+
+body {
+  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1.000) 0.000%, rgba(255, 255, 255, 1.000) 14.286%, rgba(255, 255, 233, 1.000) 28.571%, rgba(255, 255, 189, 1.000) 42.857%, rgba(255, 222, 180, 1.000) 57.143%, rgba(255, 186, 209, 1.000) 71.429%, rgba(213, 157, 255, 1.000) 85.714%, rgba(169, 140, 255, 1.000) 100.000%)
+
+}
+
+.cover-container {
+  max-width: 42em;
+}
+
+
+/* Estilo base */
+.clock{
+  display: flex;                /* columnas lado a lado */
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1px;                    /* separación entre columnas */
+  /* min-height: 100vh;  <- quítalo si usas modo fixed */
+}
+
+.clock div{
+  margin: 0;
+  position: relative;
+  display: flex;                /* cada columna apila sus spans */
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.clock span{
+  font-family: 'Gill Sans','Gill Sans MT', Calibri,'Trebuchet MS', sans-serif;
+  margin: 0;
+  width: 100px;
+  height: 80px;
+  background: purple;
+  opacity: .8;                  /* <- corregido (sin 's') */
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,.3);
+}
+
+.clock .text{
+  font-family: 'Gill Sans','Gill Sans MT', Calibri,'Trebuchet MS', sans-serif;
+  height: 30px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: darkblue;
+  opacity: .8;                  /* <- corregido */
+  width: 100px;                 /* igualar ancho del número */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* === Cuando la usa el script en modo overlay (data-mode="fixed") === */
+.clock[data-mode="fixed"]{
+  /* el script ya pone position:fixed; top:...; left:50%; transform:translateX(-50%) */
+  display: flex;                /* ¡mantener flex! */
+  min-height: auto;             /* no ocupar todo el viewport */
+  gap: 1px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/*
+ * imagen
+ */
+.presentacion-img {
+  position: fixed;         /* siempre visible */
+  bottom: 2vh;            /* a 10vh del borde inferior */
+  left: 50%;               /* centrado horizontalmente */
+  transform: translateX(-50%); /* corrección del centro */
+  z-index: 9999;           /* encima de todo */
+  pointer-events: none;    /* evita bloquear clics */
+}
+
+.presentacion-img img {
+  max-width: 40vw;         /* ajusta tamaño relativo a pantalla */
+  height: auto;
+  opacity: 0.95;           /* un toque suave */
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+}
+
+/* 📱 Ajuste especial para pantallas móviles */
+@media (max-width: 768px) {
+  .presentacion-img {
+    bottom: 2vh; /* sube un poco en móviles */
+  }
+
+  .presentacion-img img {
+    width: auto;
+    height: 50vh;      /* ocupa la mitad del alto de la pantalla */
+    max-width: none;   /* anula el límite de 40vw */
+  }
+}
+
+/* 📱 Opcional: para pantallas muy pequeñas (≤480px) */
+@media (max-width: 480px) {
+  .presentacion-img img {
+    height: 55vh; /* un poco más grande aún */
+  }
+}
+
+
+
+
+
+/*
+ * Animacion
+ */
+ @keyframes move {
+    100% {
+        transform: translate3d(0, 0, 1px) rotate(360deg);
+    }
+}
+
+.background_animated {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: #transparent;
+    overflow: hidden;
+}
+
+.background_animated span {
+    width: 20vmin;
+    height: 20vmin;
+    border-radius: 20vmin;
+    backface-visibility: hidden;
+    position: absolute;
+    animation: move;
+    animation-duration: 45;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+
+.background_animated span:nth-child(0) {
+    color: #ffccc3;
+    top: 66%;
+    left: 18%;
+    animation-duration: 30s;
+    animation-delay: -21s;
+    transform-origin: 6vw -19vh;
+    box-shadow: -40vmin 0 5.67111672965065vmin currentColor;
+}
+.background_animated span:nth-child(1) {
+    color: #ffccc3;
+    top: 11%;
+    left: 27%;
+    animation-duration: 17s;
+    animation-delay: -25s;
+    transform-origin: 14vw -12vh;
+    box-shadow: 40vmin 0 5.905090853781159vmin currentColor;
+}
+.background_animated span:nth-child(2) {
+    color: #ffccc3;
+    top: 23%;
+    left: 8%;
+    animation-duration: 45s;
+    animation-delay: -26s;
+    transform-origin: 24vw -19vh;
+    box-shadow: -40vmin 0 5.787378089505702vmin currentColor;
+}
+.background_animated span:nth-child(3) {
+    color: #ece29c;
+    top: 61%;
+    left: 9%;
+    animation-duration: 38s;
+    animation-delay: -43s;
+    transform-origin: 2vw 19vh;
+    box-shadow: 40vmin 0 5.005767744108616vmin currentColor;
+}
+.background_animated span:nth-child(4) {
+    color: #ece29c;
+    top: 10%;
+    left: 73%;
+    animation-duration: 26s;
+    animation-delay: -15s;
+    transform-origin: 23vw -19vh;
+    box-shadow: 40vmin 0 5.061059104422474vmin currentColor;
+}
+.background_animated span:nth-child(5) {
+    color: #bfa1f2;
+    top: 82%;
+    left: 76%;
+    animation-duration: 46s;
+    animation-delay: -11s;
+    transform-origin: 18vw 0vh;
+    box-shadow: 40vmin 0 5.814354712799337vmin currentColor;
+}
+.background_animated span:nth-child(6) {
+    color: #bfa1f2;
+    top: 18%;
+    left: 11%;
+    animation-duration: 40s;
+    animation-delay: -6s;
+    transform-origin: -9vw -3vh;
+    box-shadow: 40vmin 0 5.369177400651321vmin currentColor;
+}
+.background_animated span:nth-child(7) {
+    color: #ffccc3;
+    top: 5%;
+    left: 24%;
+    animation-duration: 48s;
+    animation-delay: -16s;
+    transform-origin: 25vw -12vh;
+    box-shadow: 40vmin 0 5.046546076101202vmin currentColor;
+}
+.background_animated span:nth-child(8) {
+    color: #bfa1f2;
+    top: 23%;
+    left: 57%;
+    animation-duration: 40s;
+    animation-delay: -37s;
+    transform-origin: 11vw -17vh;
+    box-shadow: 40vmin 0 5.555375351416251vmin currentColor;
+}
+.background_animated span:nth-child(9) {
+    color: #ffccc3;
+    top: 31%;
+    left: 99%;
+    animation-duration: 15s;
+    animation-delay: -17s;
+    transform-origin: -23vw 20vh;
+    box-shadow: 40vmin 0 5.8385346177177375vmin currentColor;
+}
+.background_animated span:nth-child(10) {
+    color: #ffccc3;
+    top: 91%;
+    left: 68%;
+    animation-duration: 11s;
+    animation-delay: -24s;
+    transform-origin: -16vw -16vh;
+    box-shadow: 40vmin 0 5.097579729754323vmin currentColor;
+}
+.background_animated span:nth-child(11) {
+    color: #bfa1f2;
+    top: 70%;
+    left: 65%;
+    animation-duration: 29s;
+    animation-delay: -8s;
+    transform-origin: 0vw 21vh;
+    box-shadow: -40vmin 0 5.90837448337161vmin currentColor;
+}
+.background_animated span:nth-child(12) {
+    color: #ece29c;
+    top: 67%;
+    left: 93%;
+    animation-duration: 35s;
+    animation-delay: -20s;
+    transform-origin: 25vw 11vh;
+    box-shadow: 40vmin 0 5.340950139115106vmin currentColor;
+}
+.background_animated span:nth-child(13) {
+    color: #ffccc3;
+    top: 80%;
+    left: 76%;
+    animation-duration: 8s;
+    animation-delay: -3s;
+    transform-origin: -12vw -17vh;
+    box-shadow: -40vmin 0 5.353750734498458vmin currentColor;
+}
+.background_animated span:nth-child(14) {
+    color: #ffccc3;
+    top: 19%;
+    left: 63%;
+    animation-duration: 23s;
+    animation-delay: -9s;
+    transform-origin: 16vw 20vh;
+    box-shadow: 40vmin 0 5.420737417661331vmin currentColor;
+}
+.background_animated span:nth-child(15) {
+    color: #ffccc3;
+    top: 87%;
+    left: 22%;
+    animation-duration: 23s;
+    animation-delay: -35s;
+    transform-origin: 11vw -15vh;
+    box-shadow: 40vmin 0 5.3338147181839135vmin currentColor;
+}
+.background_animated span:nth-child(16) {
+    color: #ffccc3;
+    top: 100%;
+    left: 24%;
+    animation-duration: 24s;
+    animation-delay: -9s;
+    transform-origin: 0vw -18vh;
+    box-shadow: 40vmin 0 5.410778905586548vmin currentColor;
+}
+.background_animated span:nth-child(17) {
+    color: #ffccc3;
+    top: 42%;
+    left: 28%;
+    animation-duration: 15s;
+    animation-delay: -23s;
+    transform-origin: 0vw -2vh;
+    box-shadow: -40vmin 0 5.68577416573822vmin currentColor;
+}
+.background_animated span:nth-child(18) {
+    color: #ffccc3;
+    top: 94%;
+    left: 98%;
+    animation-duration: 31s;
+    animation-delay: -22s;
+    transform-origin: 16vw 23vh;
+    box-shadow: 40vmin 0 5.76998375620685vmin currentColor;
+}
+.background_animated span:nth-child(19) {
+    color: #ece29c;
+    top: 41%;
+    left: 78%;
+    animation-duration: 28s;
+    animation-delay: -2s;
+    transform-origin: 23vw -21vh;
+    box-shadow: 40vmin 0 5.57954566639649vmin currentColor;
+}
+
+
+/* ===== BOTÓN FLOTANTE ===== */
+.avatar {
+    width: 150px;
+    height: 150px;
+    box-sizing: border-box;
+    border: 2px #ffbf69 solid;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+    transform: translatey(0px);
+    animation: float 6s ease-in-out infinite;
+    opacity: 0; /* Inicialmente oculto */
+}
+
+.avatar img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@keyframes float {
+    0% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        transform: translatey(0px);
+    }
+    50% {
+        box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+        transform: translatey(-20px);
+    }
+    100% {
+        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        transform: translatey(0px);
+    }
+}
+
+/* Ajustes para móvil */
+@media (max-width: 768px) {
+    .avatar {
+        width: 120px;
+        height: 120px;
+    }
+}

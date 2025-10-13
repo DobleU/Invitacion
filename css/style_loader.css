@@ -1,0 +1,264 @@
+/* ======= Loader base ======= */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* CORREGIDO: empieza desde arriba */
+  background: radial-gradient(ellipse at center, #fff 0%, #f7ecea 60%, #f0dedb 100%);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .6s ease, visibility 0s linear .6s;
+  overflow: hidden;
+  padding-top: 2rem; /* Espacio adicional en la parte superior */
+}
+
+.loader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ======= Contenedor del pastel ======= */
+.cake-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+  /* Aseguramos que el contenedor sea lo suficientemente alto para la animación */
+  min-height: 600px; /* Altura suficiente para la animación de caída */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* SVG del pastel - tamaño controlado */
+#cake {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  width: clamp(180px, 35vw, 280px);
+  height: auto;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+  /* Aseguramos que el pastel esté en la parte inferior del contenedor */
+  margin-top: auto;
+}
+
+/* ======= Vela y fuego - POSICIÓN CORREGIDA ======= */
+.velas {
+  background: #ffffff;
+  border-radius: 8px;
+  position: absolute;
+  top: 535px; /* POSICIÓN FINAL CORREGIDA para desktop */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 35px;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: candleDrop 1.5s 3.5s ease-out forwards; /* Animación corregida */
+}
+
+@keyframes candleDrop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-200px); /* Empieza más arriba */
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateX(-50%) translateY(-50px);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(20px);
+  }
+  85% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); /* Termina en top: 535px */
+  }
+}
+
+.velas:after,
+.velas:before {
+  background: rgba(255, 50, 50, 0.6);
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+}
+.velas:after { top: 30%; }
+.velas:before { top: 50%; }
+
+/* Fuego - aparece después que la vela */
+.fuego {
+  border-radius: 100% 100% 50% 50%;
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  margin-left: -3px;
+  width: 8px;
+  height: 18px;
+  transform-origin: center bottom;
+  opacity: 0;
+  animation: fireAppear 0.4s 4.7s ease-out forwards;
+}
+
+.fuego:nth-child(1) { 
+  background: rgba(255, 200, 50, 0.9);
+  animation: fuego 1.2s 5s infinite; 
+}
+.fuego:nth-child(2) { 
+  background: rgba(255, 100, 50, 0.7);
+  animation: fuego 0.9s 5s infinite; 
+}
+.fuego:nth-child(3) { 
+  background: rgba(255, 150, 50, 0.8);
+  animation: fuego 1.1s 5s infinite; 
+}
+.fuego:nth-child(4) { 
+  background: rgba(255, 80, 30, 0.6);
+  animation: fuego 0.8s 5s infinite; 
+}
+.fuego:nth-child(5) { 
+  background: rgba(255, 180, 40, 0.7);
+  animation: fuego 1s 5s infinite; 
+}
+
+@keyframes fireAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  70% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fuego {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+    filter: brightness(1) blur(0px);
+  }
+  25% {
+    transform: translateY(-2px) scale(1.1);
+    opacity: 1;
+    filter: brightness(1.2) blur(1px);
+  }
+  50% {
+    transform: translateY(-4px) scale(0.9);
+    opacity: 0.9;
+    filter: brightness(1.1) blur(0.5px);
+  }
+  75% {
+    transform: translateY(-1px) scale(1.05);
+    opacity: 1;
+    filter: brightness(1.15) blur(0.8px);
+  }
+}
+
+
+/* ======= Texto ======= */
+.text {
+  color: #8b6a60;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+  margin-top: 2em;
+  opacity: 1; /* Visible inmediatamente */
+}
+
+.text h1 { 
+  font-size: 1.4em;
+  margin: 0;
+  font-weight: 400;
+}0;
+}
+
+@keyframes textAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .loader {
+    padding-top: 1rem;
+    justify-content: flex-start;
+  }
+  
+  .cake-wrap {
+    min-height: 500px; /* Altura ajustada para móviles */
+  }
+  
+  #cake {
+    width: clamp(150px, 50vw, 220px);
+  }
+  
+  .velas {
+    top: 395px; /* Posición final ajustada para móviles */
+    height: 30px;
+  }
+  
+  .fuego {
+    top: -10px;
+  }
+  
+  .text h1 {
+    font-size: 1.2em;
+  }
+  
+  @keyframes candleDrop {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-150px);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translateX(-50%) translateY(-30px);
+    }
+    70% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(15px);
+    }
+    85% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+}
+
+/* Ajuste para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .velas {
+    top: 480px; /* Posición intermedia para tablets */
+  }
+  
+  .cake-wrap {
+    min-height: 550px;
+  }
+}

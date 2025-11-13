@@ -2187,3 +2187,23 @@ color: #6198bc;
         display: block;
     }
 }
+
+/* Imagen redonda, centrada y responsive */
+.img-redonda {
+    width: 150px;         /* tamaño ideal para móviles */
+    height: 150px;
+    border-radius: 50%;   /* hace el círculo perfecto */
+    object-fit: cover;    /* recorte bonito sin deformar */
+    display: block;
+    margin: 20px auto;    /* centrado horizontal + margen arriba/abajo */
+    border: 4px solid #fff;  /* opcional: borde blanco bonito */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* opcional */
+}
+
+/* Para pantallas grandes (se ve mejor un poco más grande) */
+@media (min-width: 769px) {
+    .img-redonda {
+        width: 200px;
+        height: 200px;
+    }
+}

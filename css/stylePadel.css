@@ -1,0 +1,2189 @@
+@font-face {
+  font-family: "ComicRelief";
+  src: url("../fonts/bohemia-lt-std-bold.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ComicRelief";
+  src: url("../fonts/bohemia-lt-std-italic.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Birthstone";
+  src: url("../fonts/Birthstone-Regular.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+
+/* ============================
+   HERO PORTADA FULLSCREEN
+   ============================ */
+
+/* Tipografía especial de portada */
+.hero-text h1 {
+    font-family: "BohemiaBold", serif;
+}
+
+.hero-text p,
+.hero-subtitle,
+.hero-subtitle-small {
+    font-family: "BohemiaItalic", serif;
+}
+
+.hero-portada {
+    position: relative;
+    width: 100%;
+    height: 100vh;           /* ocupa toda la pantalla */
+    overflow: hidden;
+}
+
+/* Fondo principal */
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Nubes entre fondo y personaje */
+.hero-clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300%;             /* más ancho para que el loop sea suave */
+    height: 100%;
+    background-image: url('../images/portadanubes.png'); /* desde CSS → ../images */
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    opacity: 0.8;
+    z-index: 2;
+    animation: moverNubes 60s linear infinite;
+}
+
+/* Personaje al frente */
+.hero-character {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 3;
+    pointer-events: none; /* que no intercepte clics */
+}
+
+
+
+/* Bloque de texto centrado */
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    text-align: center;
+    color: #ffffff;
+ text-shadow:
+        0 0 8px rgba(255,255,255,1),
+        0 0 14px rgba(255,255,255,0.9),
+        0 0 22px rgba(255,255,255,0.8);
+    max-width: 90%;
+    z-index: 4;
+
+    opacity: 0;
+    animation: heroTextIn 1s ease-out forwards;
+    animation-delay: 2s; /* aparece a los 2 segundos */
+}
+/* Tipografía especial de portada con tamaños grandes */
+.hero-text h1 {
+    font-family: "BohemiaBold", serif;
+    font-size: 6.4rem;           /* DOBLE */
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6rem;
+	color: #487fa3;
+}
+
+.hero-subtitle {
+    font-family: "BohemiaItalic", serif;
+    font-size: 2.4rem;           /* DOBLE */
+    font-weight: 400;
+    margin-bottom: 0.6rem;
+	color: #6198bc;
+}
+
+.hero-subtitle-small {
+    font-family: "BohemiaItalic", serif;
+    font-size: 1.9rem;           /* DOBLE */
+    font-weight: 400;
+color: #6198bc;
+}
+
+/* Animación de las nubes (parallax lento) */
+@keyframes moverNubes {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-33.333%); } /* 1/3 de 300% → loop sin cortes */
+}
+
+/* Animación de entrada de texto */
+@keyframes heroTextIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -30%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -40%);
+    }
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+
+@media (max-width: 992px) {
+    .hero-text h1 {
+        font-size: 4.4rem;
+    }
+    .hero-subtitle {
+        font-size: 3.05rem;
+    }
+    .hero-subtitle-small {
+        font-size: 1.9rem;
+    }
+}
+/* ===========================
+   PORTADA EN MÓVIL (AJUSTADA)
+   =========================== */
+@media (max-width: 768px) {
+    .hero-portada {
+        height: 100vh;
+    }
+
+    /* Subimos el bloque de texto y lo hacemos más grande */
+    .hero-text {
+        top: 42%;                          /* antes 55% → más arriba */
+        transform: translate(-50%, -55%);  /* lo sube aún más */
+        padding: 0 18px;
+    }
+
+    .hero-text h1 {
+        font-size: 5.4rem;   /* aprox. el doble de lo que tenías */
+        line-height: 1.1;
+    }
+
+    .hero-subtitle {
+        font-size: 3.6rem;   /* más grande */
+        margin-bottom: 0.4rem;
+    }
+
+    .hero-subtitle-small {
+        font-size: 2.3rem;
+        line-height: 1.4;
+    }
+
+    /* Hacemos que el personaje (portada01) se vea desde el inicio */
+    .hero-character {
+        object-position: bottom center; /* enfoca la parte baja donde está el personaje */
+    }
+
+    /* El fondo lo dejamos centrado-arriba para que no tape al personaje */
+    .hero-bg {
+        object-position: top center;
+    }
+}
+
+
+/* ======================================
+   AJUSTE SOLO PARA MÓVIL – PORTADA
+   ====================================== */
+@media (max-width: 768px) {
+
+    /* Mostrar mejor el personaje (portada01.png) */
+    .hero-character {
+        object-position: bottom center !important;
+    }
+
+    /* El fondo se mantiene más arriba para no tapar al personaje */
+    .hero-bg {
+        object-position: top center !important;
+    }
+
+    /* Subir un poco el bloque de texto para que se vea mejor */
+    .hero-text {
+        top: 42% !important;
+        transform: translate(-50%, -55%) !important;
+    }
+}
+
+/* ================================
+   FIX RÁPIDO PORTADA EN MÓVIL
+   ================================ */
+@media (max-width: 768px) {
+
+    /* Mover la imagen portada01 (Pooh) para que se vea en el centro */
+    .hero-character {
+        object-position: bottom center !important;
+    }
+
+    /* Subir el texto y hacerlo más grande en móvil */
+    .hero-text {
+        top: 45% !important;
+        transform: translate(-50%, -55%) !important;
+        padding: 0 18px;
+    }
+
+    .hero-text h1 {
+        font-size: 4rem !important;
+        line-height: 1.1;
+    }
+
+    .hero-subtitle {
+        font-size: 2.0rem !important;
+    }
+
+    .hero-subtitle-small {
+        font-size: 1.7rem !important;
+        line-height: 1.4;
+    }
+}
+
+
+/* Estilos específicos de la página */
+.containerPadel {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    padding-top: 50px; /* Espacio para el header */
+}
+
+
+
+
+.backgroundPadel {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.playerY {
+    position: absolute;
+    width: 40%;
+    transition: transform 2s;
+}
+
+.playerX {
+    position: absolute;
+    width: 30%;
+    transition: transform 2s;
+}
+
+.player1 {
+    top: 50%;
+    left: 100%;
+    transform: translate(25%, -50%);
+}
+
+.player2 {
+    top: 50%;
+    right: 100%;
+    transform: translate(-25%, -40%);
+}
+
+.logoPadel {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    width: 10%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 2s;
+}
+
+
+
+
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    
+    .containerPadel {
+        padding-top: 0px; /* Ajustar el espacio superior para dispositivos móviles */
+        height: 50vh; /* Reducir la altura del contenedor en dispositivos móviles */
+    }
+
+    .backgroundPadel {
+        height: 50vh; /* Reducir la altura de la imagen de fondo */
+    }
+
+    .player1, .player2 {
+        display: none; /* Ocultar las imágenes de los jugadores */
+    }
+
+   .logoPadel {
+        width: 80%; /* Aumentar el tamaño del logo */
+        height: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -100%);
+    }
+}
+
+
+.content-banner {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .sponsor {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-width: 100%;
+        }
+        .sponsor li {
+            flex: 1 1 auto;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .sponsor img {
+            width: 273px;
+            height: 133px;
+        }
+        @media (max-width: 600px) {
+            .sponsor {
+               /* flex-direction: column;*/
+                align-items: center;
+            }
+            .sponsor li {
+                flex: 1 1 100%;
+                margin: 5px 0;
+                display: flex;
+                justify-content: center;
+            }
+            .sponsor img {
+                width: auto;
+                max-width: 100%;
+                height: auto;
+            }
+        }
+		
+		
+		/* =========================================
+   BLOQUE FECHA + CONTADOR "RESERVA LA FECHA"
+   ========================================= */
+   
+   /* WRAPPER FULL-WIDTH */
+.save-date-wrapper {
+    width: 100%;
+    margin-top: 50px; /* ahora sí funciona porque la sección es independiente */
+}
+
+.save-date-section {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+
+    background: rgba(153, 179, 196, 0.92);
+    padding: 60px 15px 80px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.save-date-inner {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* Línea con 29 / noviembre / 2025 */
+.save-date-date {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 25px;
+}
+
+.date-day,
+.date-year {
+    font-family: "BohemiaBold", serif;   /* misma familia del hero */
+    font-size: 4.8rem;
+    letter-spacing: 0.06em;
+}
+
+.date-month {
+    font-family: "BohemiaItalic", serif; /* cursiva bonita */
+    font-size: 2.4rem;
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+}
+
+/* Título "RESERVA LA FECHA" */
+.countdown-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+}
+
+/* Cuadros del contador */
+.countdown-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.count-box {
+    width: 140px;
+    padding: 18px 10px 16px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(4px);
+}
+
+.count-number {
+    font-family: "BohemiaBold", serif;
+    font-size: 2.4rem;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.count-label {
+    font-family: "BohemiaItalic", serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* --------- Responsive --------- */
+
+@media (max-width: 992px) {
+    .date-day,
+    .date-year {
+        font-size: 3.8rem;
+    }
+
+    .date-month {
+        font-size: 2rem;
+    }
+
+    .count-box {
+        width: 130px;
+    }
+}
+@media (max-width: 768px) {
+    .save-date-section {
+        padding: 40px 15px 60px;
+    }
+
+    /* FECHA CENTRADA Y EN COLUMNA */
+    .save-date-date {
+        flex-direction: column;
+        align-items: center;        /* centra los spans entre sí */
+        justify-content: center;    /* centra verticalmente */
+        text-align: center;         /* centra el texto */
+        gap: 0.15rem;
+        margin-bottom: 20px;
+    }
+
+    .date-day,
+    .date-year {
+        font-size: 3.6rem;          /* un poco más grande */
+        line-height: 1.1;
+    }
+
+    .date-month {
+        font-size: 2.2rem;          /* más grande y clara */
+        letter-spacing: 0.18em;
+    }
+
+    .countdown-title {
+        font-size: 1.4rem;
+        letter-spacing: 0.18em;
+    }
+
+    .count-box {
+        width: 46%;
+    }
+}
+
+/* ============================
+   SECCIONES GENERALES
+   ============================ */
+
+/* Contenedor de secciones full-width */
+.vp-section {
+    width: 100%;
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+/* Contenido centrado */
+.vp-section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Título y subtítulo */
+.vp-section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.vp-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 3rem;
+    letter-spacing: 0.12em;
+    text-transform: capitalize;
+    color: #424b57;
+    margin-bottom: 10px;
+}
+
+.vp-title-underline {
+    width: 80px;
+    height: 3px;
+    margin: 0 auto 18px;
+    background-color: #7fb0d0; /* pequeño subrayado */
+    border-radius: 999px;
+}
+
+.vp-subtitle {
+    font-family: "BohemiaItalic", serif;
+    font-size: 1.4rem;
+    color: #7a8795;
+}
+
+/* ============================
+   SECCIÓN: NUESTROS PEQUEÑOS
+   ============================ */
+
+.vp-section-kids {
+    /* si quieres un tono muy ligero, puedes usar un degradado suave aquí */
+    background: #f7ebd3;
+}
+
+/* Grid de 2 columnas */
+.vp-kids-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px;
+}
+
+/* Tarjeta de cada niño */
+.vp-kid-card {
+    text-align: center;
+}
+
+/* Avatar circular */
+.vp-kid-avatar {
+    width: 210px;
+    height: 210px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.10);
+}
+
+.vp-kid-avatar-blue {
+    background: #d6e7f7;
+}
+
+.vp-kid-avatar-green {
+    background: #d4f4e3;
+}
+
+.vp-kid-emoji {
+    font-size: 64px;
+}
+
+/* Nombre del niño */
+.vp-kid-name {
+    font-family: "BohemiaBold", serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.16em;
+    margin-bottom: 10px;
+    color: #536174;
+}
+
+/* Etiqueta de color */
+.vp-kid-badge {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 6px 18px;
+    border-radius: 999px;
+    font-family: "BohemiaItalic", serif;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: capitalize;
+    color: #ffffff;
+}
+
+.vp-kid-badge-blue {
+    background: #4a9cd8;
+}
+
+.vp-kid-badge-green {
+    background: #44b56a;
+}
+
+/* Texto justificado */
+.vp-kid-text {
+    font-family: "BohemiaItalic", serif;
+    font-size: 0.95rem;
+    color: #6b7583;
+    text-align: justify;
+    line-height: 1.7;
+}
+/* ============================
+   ANIMACIÓN DE ENTRADA (reutiliza .reveal-item)
+   ============================ */
+
+/* Estado inicial de cualquier elemento animable */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(45px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+    transition-delay: var(--reveal-delay, 0s); /* cada ítem puede tener su propio delay */
+}
+
+/* Cuando el ítem entra de forma individual al viewport
+   (lo usa la galería y cualquier elemento .reveal-item observado) */
+.reveal-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Para la mayoría de secciones (pero NO para la galería),
+   seguimos usando el comportamiento anterior: cuando la sección entra
+   en vista, se activan todos sus hijos .reveal-item a la vez. */
+.section-reveal:not(.vp-section-gallery).in-view .reveal-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Variantes: entrada horizontal derecha/izquierda para columnas */
+.reveal-item.from-left,
+.reveal-item.from-right {
+    /* Cancelamos el desplazamiento vertical por defecto
+       y usamos desplazamiento horizontal */
+    transform: translateY(0) translateX(45px);
+}
+.reveal-item.from-left {
+    transform: translateY(0) translateX(-45px);
+}
+
+/* Cuando el elemento se hace visible (por IntersectionObserver)
+   o cuando la sección está en vista, lo llevamos a su posición final */
+.reveal-item.from-left.visible,
+.reveal-item.from-right.visible,
+.section-reveal.in-view .reveal-item.from-left,
+.section-reveal.in-view .reveal-item.from-right {
+    transform: translateY(0) translateX(0);
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+
+@media (max-width: 992px) {
+    .vp-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .vp-section {
+        padding: 60px 0;
+    }
+
+    .vp-kids-grid {
+        grid-template-columns: 1fr; /* una sola columna en móvil */
+    }
+
+    .vp-kid-avatar {
+        width: 180px;
+        height: 180px;
+    }
+
+    .vp-kid-text {
+        font-size: 0.95rem;
+    }
+}
+/* Párrafos con Birthstone */
+#parallaxTraining .txt-training .p-birth {
+    font-family: "Birthstone", cursive !important;
+    font-size: 2.2rem;
+    line-height: 1.4;
+    margin-bottom: 25px;
+}
+
+/* Párrafo más grande */
+#parallaxTraining .txt-training .p-birth-large {
+    font-size: 2.8rem !important;
+}
+
+
+
+/* ============================
+   SECCIÓN ITINERARIO
+   ============================ */
+/* sección genérica */
+.vp-section {
+    width: 100%;
+    padding: 80px 0;
+    /*background: #ffffff;*/
+}
+
+.vp-section-itinerary {
+    background: #99b3c4;
+    color: #ffffff;
+    padding-top: 40px;
+    padding-bottom: 50px;
+}
+
+/* Encabezados */
+.vp-itinerary-header {
+    text-align: center;
+    margin-bottom: 30px;  /* antes estaba en 50px */
+}
+
+.vp-itinerary-script {
+    font-family: "Birthstone", cursive; /* o la que prefieras para cursiva */
+    font-size: 2.4rem;
+    margin-bottom: 8px;
+}
+
+.vp-itinerary-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 2.8rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+}
+
+/* Línea de subrayado reutiliza .vp-title-underline, pero aquí aclaramos color */
+.vp-section-itinerary .vp-title-underline {
+    background-color: #f9fafb;
+}
+
+/* Timeline contenedor */
+.vp-itinerary-timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 70px; /* espacio para la columna de iconos */
+}
+
+/* Línea vertical */
+.vp-itinerary-line {
+    position: absolute;
+    top: 0;
+    left: 34px;
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Ítem de timeline */
+.vp-itinerary-item {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 18px;
+}
+
+/* Círculo de icono */
+.vp-itinerary-icon {
+    position: relative;
+    z-index: 2;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.vp-itinerary-icon span {
+    font-size: 30px;
+}
+
+/* Tarjeta */
+.vp-itinerary-card {
+    flex: 1;
+    background: #f7fafc;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    padding: 14px 22px;
+    color: #4a5563;
+}
+
+.vp-itinerary-card-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.vp-itinerary-card-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 1.1rem;
+    margin: 0 0 3px;
+    color: #2d3748;
+}
+
+.vp-itinerary-card-subtitle {
+    font-family: "BohemiaItalic", serif;
+    font-size: 0.85rem;
+    margin: 0;
+    color: #718096;
+}
+
+/* Hora a la derecha */
+.vp-itinerary-time {
+    font-family: "BohemiaItalic", serif;
+    font-size: 0.95rem;
+    color: #a0aec0;
+}
+
+/* ============================
+   ANIMACIÓN DE ENTRADA (reutiliza .reveal-item)
+   ============================ */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(45px);                    /* baja más al inicio */
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+    transition-delay: var(--reveal-delay, 0s);      /* sigue usando el delay que pusimos en el HTML */
+}
+
+.section-reveal.in-view .reveal-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+
+@media (max-width: 768px) {
+    .vp-itinerary-timeline {
+        padding-left: 0;
+    }
+
+    .vp-itinerary-line {
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.35;
+    }
+
+    .vp-itinerary-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .vp-itinerary-icon {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .vp-itinerary-card-main {
+        flex-direction: column;
+    }
+
+    .vp-itinerary-time {
+        margin-top: 6px;
+    }
+}
+
+/* Arreglar espacio enorme arriba del itinerario */
+#itinerario .vp-itinerary-script {
+    margin: 0 0 8px !important;  /* sin margen arriba, solo abajo */
+    padding: 0 !important;
+    display: inline-block;       /* evita colapso de márgenes */
+}
+
+/* Por seguridad, que ningún <p> dentro del itinerario meta margen arriba raro */
+#itinerario p {
+    margin-top: 0 !important;
+}
+
+
+/* SOLO AGRANDAR TIPOGRAFÍA DEL ITINERARIO */
+
+/* “Itinerario” (script) */
+.vp-itinerary-script {
+	
+  font-family: "BohemiaItalic", serif !important; 
+   
+  	
+	
+     font-size: 3.4rem !important;  /* antes mucho más pequeño */
+}
+
+/* “Agenda del día especial” */
+.vp-itinerary-title {
+    font-size: 3.4rem !important;
+}
+
+/* Título de cada actividad */
+.vp-itinerary-card-title {
+    font-size: 1.4rem !important;
+    line-height: 1.3;
+}
+
+/* Descripción bajo el título */
+.vp-itinerary-card-subtitle {
+    font-size: 1.05rem !important;
+    line-height: 1.4;
+}
+
+/* Hora a la derecha */
+.vp-itinerary-time {
+    font-size: 1.2rem !important;
+}
+
+/* Opcional: un poquito más grande el emoji sin tocar el círculo */
+.vp-itinerary-icon span {
+    font-size: 1.9rem !important;
+}
+
+/* =============================== */
+/* SECCIÓN EVENTO (TAMAÑO ×2) */
+/* =============================== */
+
+#vp-evento {
+    width: 100%;
+    padding: 100px 0;
+    background: #ffffff;
+}
+
+.vp-evento-container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 60px;
+}
+
+.vp-evento-card {
+    flex: 1;
+    text-align: center;
+}
+
+/* Subtítulo (italic) */
+.vp-evento-subtitle {
+    font-family: 'Birthstone', cursive;
+    font-size: 4.4rem;      /* antes 2.2rem ×2 */
+    color: #6d8091;
+    margin-bottom: 20px;
+}
+
+/* Título principal */
+.vp-evento-title {
+    font-size: 5rem;        /* antes 2.5rem ×2 */
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #53667a;
+    margin-bottom: 30px;
+}
+
+/* Dirección */
+.vp-evento-address {
+    font-size: 2.4rem;      /* antes 1.2rem ×2 */
+    line-height: 1.5;
+    color: #6d8091;
+    margin-bottom: 30px;
+}
+
+/* Hora */
+.vp-evento-hour {
+    font-size: 4rem;        /* antes 2rem ×2 */
+    font-weight: 700;
+    color: #53667a;
+    margin-bottom: 30px;
+}
+
+/* Botón */
+.vp-btn-maps {
+    display: inline-block;
+    background: #94aabd;
+    color: white;
+    padding: 20px 40px;     /* escalado ×2 */
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 2rem;        /* antes 1rem ×2 */
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+.vp-btn-maps:hover {
+    background: #7f97ab;
+}
+
+/*/* Línea vertical entre los dos bloques del evento (versión desktop) */
+.vp-evento-divider {
+    width: 3px;
+    background: #8ba3b8;
+    opacity: 0.7;
+    align-self: stretch;   /* se estira a la altura de las tarjetas */
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .vp-evento-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 80px;
+    }
+
+    .vp-evento-divider {
+        width: 90%;
+        height: 4px;
+        margin: 30px auto;
+    }
+}
+/* ============================= */
+/*   GALERÍA TEMÁTICA            */
+/* ============================= */
+
+#vp-galeria.vp-section-gallery {
+    background: #f7ebd3;
+    color: #00000;
+    padding: 80px 0 100px;
+}
+
+.vp-gallery-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Cabecera */
+.vp-gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.vp-gallery-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 3rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+}
+
+.vp-section-gallery .vp-title-underline {
+    width: 120px;
+    height: 3px;
+    margin: 0.5rem auto 1.2rem;
+    background-color: #f9fafb;
+    border-radius: 999px;
+}
+
+.vp-gallery-subtitle {
+    font-family: "Birthstone", cursive;
+    font-size: 1.9rem;
+    margin: 0;
+}
+
+/* GRID BASE: 3 columnas, filas de altura fija */
+.vp-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 200px;
+    gap: 22px;
+    margin-bottom: 50px;
+}
+
+/* Tarjeta de imagen */
+.vp-gallery-item {
+    border-radius: 22px;
+    overflow: hidden;
+    background: #f7fafc;
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vp-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Hover */
+.vp-gallery-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.28);
+}
+
+/* ======= POSICIONES EXACTAS (DESKTOP) ======= */
+/* columnas: 1 | 2 | 3
+   filas:    1..N  (alto base: 200px) */
+
+.vp-gallery-item.gal-1 {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;    /* alta vertical izquierda */
+}
+
+.vp-gallery-item.gal-2 {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;    /* cuadro arriba derecha */
+}
+
+.vp-gallery-item.gal-3 {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;    /* rectangular ancho bajo la primera */
+}
+
+.vp-gallery-item.gal-4 {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 2;    /* centro vertical (como el Pooh grande) */
+}
+
+.vp-gallery-item.gal-5 {
+    grid-column: 3 / span 1;
+    grid-row: 2 / span 2;    /* derecha vertical grande */
+}
+
+.vp-gallery-item.gal-6 {
+    grid-column: 1 / span 1;
+    grid-row: 4 / span 1;    /* cuadro parte baja izquierda */
+}
+
+.vp-gallery-item.gal-7 {
+    grid-column: 2 / span 1;
+    grid-row: 3 / span 2;    /* centro vertical segunda parte */
+}
+
+.vp-gallery-item.gal-8 {
+    grid-column: 3 / span 1;
+    grid-row: 4 / span 1;    /* cuadro parte baja derecha */
+}
+
+/* CUADRO TEXTO FINAL */
+.vp-gallery-description {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 26px 32px;
+    background: rgba(247, 250, 252, 0.9);
+    border-radius: 18px;
+    text-align: center;
+    color: #4a5568;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.15);
+}
+
+.vp-gallery-desc-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    color: #2d3748;
+}
+
+.vp-gallery-desc-text {
+    font-size:  1.6rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 992px) {
+    .vp-gallery-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        grid-auto-rows: 180px;
+    }
+
+    /* En tablet dejamos layout más simple */
+    .vp-gallery-item.gal-1,
+    .vp-gallery-item.gal-2,
+    .vp-gallery-item.gal-3,
+    .vp-gallery-item.gal-4,
+    .vp-gallery-item.gal-5,
+    .vp-gallery-item.gal-6,
+    .vp-gallery-item.gal-7,
+    .vp-gallery-item.gal-8 {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+}
+
+@media (max-width: 640px) {
+    #vp-galeria.vp-section-gallery {
+        padding-top: 60px;
+        padding-bottom: 80px;
+    }
+
+    .vp-gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 220px;
+    }
+
+    .vp-gallery-title {
+        font-size: 2.4rem;
+    }
+
+    .vp-gallery-subtitle {
+        font-size: 1.6rem;
+    }
+
+    .vp-gallery-description {
+        padding: 22px 18px;
+    }
+}
+/* ===============================================
+   ANIMACIÓN SOLO PARA LA GALERÍA (#vp-galeria)
+   =============================================== */
+
+/* Estado inicial: ocultas y un poco hacia abajo */
+#vp-galeria .vp-gallery-item {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+/* Cuando se les añade la clase .show, se muestran */
+#vp-galeria .vp-gallery-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =============================
+   MESA DE REGALOS
+   ============================= */
+
+#mesa-regalos.vp-gifts-section {
+    background: #fff7ea;
+    padding: 80px 0 90px;
+}
+
+.vp-gifts-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.vp-gifts-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.vp-gifts-logo {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: #ffc75d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.vp-gifts-logo-icon {
+    font-size: 2rem;
+}
+
+.vp-gifts-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 2.6rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+}
+
+.vp-gifts-subtitle {
+    font-size: 1.5rem;
+    color: #6b7280;
+}
+
+/* GRID PRINCIPAL DOS COLUMNAS */
+.vp-gifts-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.9fr);
+    gap: 32px;
+    margin-bottom: 40px;
+}
+
+/* Tarjeta bebés */
+.vp-gifts-card-babies {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 26px 26px 30px;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.12);
+}
+
+.vp-gifts-babies-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.vp-gifts-babies-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vp-gifts-babies-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: #f9fafb;
+}
+
+.vp-gifts-badge-label {
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.vp-gifts-badge-value {
+    font-weight: 700;
+    color: #2563eb;
+}
+
+/* Tarjeta ideas de regalos */
+.vp-gifts-card-ideas {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 26px 26px 30px;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.12);
+}
+
+.vp-gifts-ideas-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 1.9rem;
+    margin-bottom: 20px;
+}
+
+.vp-gifts-ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.vp-gift-idea {
+    border-radius: 18px;
+    padding: 16px 14px;
+    background: #fff6e5;
+    font-size: 0.95rem;
+}
+
+.vp-gift-idea:nth-child(2) { background: #e0f2ff; }
+.vp-gift-idea:nth-child(3) { background: #ffe4f1; }
+.vp-gift-idea:nth-child(4) { background: #dff7f0; }
+.vp-gift-idea:nth-child(5) { background: #fff3c7; }
+.vp-gift-idea:nth-child(6) { background: #fde9d9; }
+
+.vp-gift-idea h4 {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.vp-gift-idea ul {
+    padding-left: 18px;
+    margin: 0;
+}
+
+/* Mesa online */
+.vp-gifts-online {
+    margin-top: 10px;
+    margin-bottom: 36px;
+    padding: 26px 24px 30px;
+    border-radius: 22px;
+    background: #ffeceb;
+    text-align: center;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.10);
+}
+
+.vp-gifts-online-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 1.9rem;
+    margin-bottom: 6px;
+}
+
+.vp-gifts-online-subtitle {
+    margin-bottom: 20px;
+    color: #6b7280;
+}
+
+.vp-gifts-stores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.vp-gift-store {
+    display: block;
+    padding: 14px 10px;
+    border-radius: 16px;
+    text-decoration: none;
+    background: #ffffff;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.10);
+}
+
+.vp-gift-store-name {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #374151;
+}
+
+.vp-gift-store-tag {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* Mensajes inferiores */
+.vp-gifts-bottom-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 10px;
+}
+
+.vp-gifts-thanks-card,
+.vp-gifts-cash-card {
+    border-radius: 22px;
+    padding: 24px 22px 26px;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.1);
+}
+
+.vp-gifts-thanks-card {
+    background: #fff6d9;
+}
+
+.vp-gifts-cash-card {
+    background: #e0faff;
+}
+
+.vp-gifts-thanks-card h4,
+.vp-gifts-cash-card h4 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+
+.vp-gifts-quote-author {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+/* Responsive Mesa de regalos */
+@media (max-width: 992px) {
+    .vp-gifts-main-grid {
+        grid-template-columns: 1fr;
+    }
+    .vp-gifts-ideas-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+    .vp-gifts-stores-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+    .vp-gifts-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .vp-gifts-ideas-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+/* =============================
+   CONFIRMAR ASISTENCIA
+   ============================= */
+
+#confirmar-asistencia.vp-confirm-section {
+    background: #fff3cf;
+    padding: 80px 0 90px;
+}
+
+.vp-confirm-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.vp-confirm-text {
+    flex: 1.1;
+}
+
+.vp-confirm-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #ffcf67;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    margin-bottom: 18px;
+}
+
+.vp-confirm-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 2.6rem;
+    margin-bottom: 14px;
+}
+
+.vp-confirm-message {
+    font-size: 1.5rem;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.vp-confirm-sign {
+    font-size: 1.2rem;
+    margin-bottom: 28px;
+}
+
+/* Botón WhatsApp */
+.vp-btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    border-radius: 999px;
+    border: none;
+    background: #22c55e;
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 14px 30px rgba(34,197,94,0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.vp-btn-whatsapp i {
+    font-size: 1.5rem;
+}
+
+.vp-btn-whatsapp:hover {
+    background: #16a34a;
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(22,163,74,0.40);
+}
+
+.vp-confirm-deadline {
+    margin-top: 18px;
+    color: #6b7280;
+}
+
+/* Imagen derecha */
+.vp-confirm-image-wrapper {
+    flex: 0.9;
+    display: flex;
+    justify-content: center;
+}
+
+.vp-confirm-image {
+    max-width: 100%;
+    border-radius: 30px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+}
+
+/* Responsive confirmar */
+@media (max-width: 992px) {
+    .vp-confirm-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+    .vp-confirm-icon {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .vp-confirm-image-wrapper {
+        order: -1;
+    }
+}
+
+/* =============================
+   MESA DE REGALOS
+   ============================= */
+
+.vp-gifts-section {
+    background: #fff4df;
+    padding: 80px 0 90px;
+}
+
+.vp-gifts-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Encabezado general */
+.vp-gifts-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.vp-gifts-logo {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    background: #ffb84c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 14px 32px rgba(0,0,0,0.18);
+}
+
+.vp-gifts-logo-icon {
+    font-size: 2.1rem;
+}
+
+.vp-gifts-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 2.8rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 6px;
+}
+
+.vp-gifts-subtitle {
+    font-family: "BohemiaItalic", serif;
+    font-size: 1.4rem;
+    color: #6b7381;
+}
+
+/* GRID principal */
+.vp-gifts-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 2.05fr);
+    gap: 26px;
+    margin-bottom: 32px;
+}
+
+/* Tarjetas base */
+.vp-gifts-card-babies,
+.vp-gifts-card-ideas {
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0 22px 60px rgba(0,0,0,0.19);
+    padding: 26px 26px 30px;
+}
+
+/* ========= IZQUIERDA: CARLOS & ALEJANDRO ========= */
+
+.vp-gifts-babies-header {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.vp-gifts-babies-emoji {
+	
+    font-size: 4.1rem;
+    display: block;
+    margin-bottom: 4px;
+	
+}
+
+.vp-gifts-babies-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 1.8rem;
+    color: #0088a7;
+}
+
+/* filas */
+.vp-gifts-babies-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vp-baby-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 999px;
+    padding: 9px 14px 9px 14px;
+    margin-bottom: 8px;
+    font-size: 0.98rem;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.05);
+    background: #f7f8fb;
+}
+
+.vp-baby-row-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.vp-baby-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+/* Colores por fila (parecidos a la referencia) */
+.vp-baby-row.row-edad {
+    background: #ffeccc;
+}
+.vp-baby-row.row-ropa {
+    background: #e1f7e9;
+}
+.vp-baby-row.row-zapatos {
+    background: #ffe0ec;
+}
+.vp-baby-row.row-panales {
+    background: #ddf7ec;
+}
+
+.vp-baby-label {
+    font-weight: 600;
+    color: #555f6f;
+}
+
+.vp-baby-value {
+    font-weight: 700;
+    color: #2563eb;
+}
+
+/* ========= DERECHA: IDEAS DE REGALOS ========= */
+
+.vp-gifts-ideas-header {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.vp-gifts-ideas-icon {
+    display: inline-flex;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #ffbf4a;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+    margin-bottom: 6px;
+}
+
+.vp-gifts-ideas-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 1.9rem;
+    color: #c46c29;
+}
+
+.vp-gifts-ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* tarjeta de idea */
+.vp-gift-idea {
+    border-radius: 20px;
+    padding: 14px 16px 16px;
+    font-size: 0.96rem;
+    box-shadow: 0 14px 36px rgba(0,0,0,0.08);
+}
+
+/* Colores por tipo */
+.idea-juguetes      { background: #ffe7c4; }
+.idea-ropa          { background: #dfeeff; }
+.idea-cuidado       { background: #ffdbe9; }
+.idea-alimentacion  { background: #ddf7f0; }
+.idea-educativo     { background: #ffeebe; }
+.idea-especiales    { background: #ffe0c8; }
+
+.vp-idea-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.vp-idea-icon {
+    font-size: 1.9rem;        /* ÍCONOS GRANDES */
+}
+
+.vp-gift-idea h4 {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin: 0;
+}
+
+.vp-gift-idea ul {
+    padding-left: 18px;
+    margin: 4px 0 0;
+}
+
+/* ========= MESA DE REGALOS ONLINE ========= */
+
+.vp-gifts-online {
+    background: #ffe6ec;
+    border-radius: 30px;
+    box-shadow: 0 22px 60px rgba(0,0,0,0.18);
+    padding: 32px 26px 34px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 26px;
+}
+
+.vp-gifts-online-lock {
+    margin-bottom: 6px;
+}
+
+.vp-gifts-online-lock-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #ffb356;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.22);
+}
+
+.vp-gifts-online-title {
+    font-family: "BohemiaBold", serif;
+    font-size: 2rem;
+    color: #c96b2d;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+.vp-gifts-online-subtitle {
+    font-size: 1.05rem;
+    color: #6b7280;
+    margin-bottom: 18px;
+}
+
+/* tiendas */
+.vp-gifts-stores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.vp-gift-store {
+    display: block;
+    border-radius: 20px;
+    padding: 16px 12px 14px;
+    text-decoration: none;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    background: #ffffff;
+    color: inherit;
+}
+
+/* colores de fondo aproximados */
+.store-amazon   { background: #ffe9ce; }
+.store-liverpool{ background: #ffe0e5; }
+.store-walmart  { background: #e0efff; }
+.store-soriana  { background: #dcf9ea; }
+
+.vp-gift-store-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
+.vp-gift-store-emoji {
+    font-size: 1.7rem;
+}
+
+.vp-gift-store-name {
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.vp-gift-store-tag {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* ========= TARJETAS INFERIORES ========= */
+
+.vp-gifts-bottom-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.vp-gifts-thanks-card,
+.vp-gifts-cash-card {
+    border-radius: 24px;
+    padding: 22px 22px 24px;
+    box-shadow: 0 18px 46px rgba(0,0,0,0.14);
+    font-size: 0.98rem;
+}
+
+.vp-gifts-thanks-card {
+    background: #ffeec0;
+}
+
+.vp-gifts-cash-card {
+    background: #dff8ff;
+}
+
+.vp-gifts-bottom-icon {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+}
+
+.vp-gifts-thanks-card h4,
+.vp-gifts-cash-card h4 {
+    font-size: 1.25rem;
+    margin-bottom: 4px;
+}
+
+.vp-gifts-quote-author {
+    margin-top: 4px;
+    font-size: 0.88rem;
+    color: #6b7280;
+}
+
+/* ========= RESPONSIVE ========= */
+
+@media (max-width: 992px) {
+    .vp-gifts-main-grid {
+        grid-template-columns: 1fr;
+    }
+    .vp-gifts-stores-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .vp-gifts-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .vp-gifts-ideas-grid {
+        grid-template-columns: 1fr;
+    }
+    .vp-gifts-stores-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+/* ==========================================
+   DUPLICAR TAMAÑO DE TEXTOS — MESA DE REGALOS
+   ========================================== */
+
+#mesa-regalos {
+    font-size: 200%; /* Aumenta todo el texto dentro de la sección */
+}
+
+/* Títulos principales */
+.vp-gifts-title {
+    font-size: 5.2rem !important;
+}
+
+.vp-gifts-subtitle {
+    font-size: 2.8rem !important;
+}
+
+/* Encabezados columna izquierda y derecha */
+.vp-gifts-babies-title,
+.vp-gifts-ideas-title,
+.vp-gifts-online-title {
+    font-size: 3.6rem !important;
+}
+
+/* Listas y detalles */
+.vp-baby-label,
+.vp-baby-value,
+.vp-gift-idea ul li,
+.vp-gift-idea h4,
+.vp-gifts-online-subtitle,
+.vp-gift-store-name,
+.vp-gift-store-tag,
+.vp-gifts-thanks-card p,
+.vp-gifts-cash-card p {
+    font-size: 2.0rem !important;
+    line-height: 1.35;
+}
+
+/* Íconos más grandes */
+.vp-baby-icon,
+.vp-idea-icon,
+.vp-gift-store-emoji,
+.vp-gifts-ideas-icon,
+.vp-gifts-bottom-icon {
+    font-size: 3.2rem !important;
+}
+
+/* Ajustes para botones de tiendas */
+.vp-gift-store {
+    padding: 28px 20px !important;
+}
+
+/* Ajuste de nombres de categoría */
+.vp-gift-idea h4 {
+    font-size: 2.4rem !important;
+}
+
+/* Texto inferior */
+.vp-gifts-quote-author {
+    font-size: 1.8rem !important;
+}
+
+/* Para que los contenedores se ajusten al nuevo tamaño */
+.vp-gift-idea {
+    padding: 28px !important;
+}
+
+.vp-baby-row {
+    padding: 18px 28px !important;
+}
+
+
+/* ==========================================
+   CENTRAR TARJETAS INFERIORES COMPLETAMENTE
+   ========================================== */
+
+.vp-gifts-thanks-card,
+.vp-gifts-cash-card {
+    text-align: center !important;
+}
+
+/* Centrar el ícono */
+.vp-gifts-bottom-icon {
+    display: block;
+    width: 100%;
+    font-size: 3rem;
+    margin-bottom: 14px;
+}
+
+/* Títulos centrados */
+.vp-gifts-thanks-card h4,
+.vp-gifts-cash-card h4 {
+    text-align: center !important;
+    margin-bottom: 12px !important;
+}
+
+/* Texto centrado */
+.vp-gifts-thanks-card p,
+.vp-gifts-cash-card p {
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Autor centrado */
+.vp-gifts-quote-author {
+    text-align: center !important;
+    display: block;
+    margin-top: 12px;
+}
+
+/* ==========================================
+   CENTRAR SECCIÓN DE CONFIRMAR ASISTENCIA
+   ========================================== */
+
+.vp-rsvp-section {
+    text-align: center !important;
+}
+
+/* Centrar el icono */
+.vp-rsvp-icon {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+}
+
+/* Título centrado */
+.vp-rsvp-section h2,
+.vp-rsvp-section h3,
+.vp-rsvp-section h4 {
+    text-align: center !important;
+}
+
+/* Texto y firma centrada */
+.vp-rsvp-section p,
+.vp-rsvp-signature {
+    text-align: center !important;
+}
+
+/* Contenedor del botón centrado */
+.vp-rsvp-button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+/* Botón centrado */
+.vp-rsvp-button {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-flex;
+    text-align: center;
+}
+
+/* Quitar subrayado en los enlaces de Mesa de Regalos Online */
+#mesa-regalos .vp-gift-store,
+#mesa-regalos .vp-gift-store a,
+#mesa-regalos .vp-gift-store-name,
+#mesa-regalos .vp-gift-store-tag {
+    text-decoration: none !important;
+}
+
+/* Versión PC */
+.portada-pc {
+    width: 100%;
+    display: block;
+}
+
+.portada-movil {
+    display: none;
+}
+
+/* Versión móvil */
+@media (max-width: 768px) {
+    .portada-pc {
+        display: none;
+    }
+
+    .portada-movil {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+}

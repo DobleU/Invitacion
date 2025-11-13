@@ -1,0 +1,30 @@
+$theme-blue: #ffcc00;
+$theme-green: #40d194;
+$theme-mushroom: #ba9e7d;
+
+body {
+  background-color:#000;
+  padding:40vh 3% 3% 3%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  color:$theme-green; 
+  font-family:arial;
+  font-size: 3.5rem;
+  letter-spacing: -.125rem;
+  line-height: 3.75rem;
+  font-weight:bold;
+}
+
+.white {
+  color:#fff; 
+  margin-top:-2.5rem
+}
+
+
+
+span {
+  transition: all 0.3s ease
+}

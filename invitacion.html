@@ -991,63 +991,86 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var overlay = document.getElementById('music-overlay');
+    var audio   = document.getElementById('bg-music');
+    var btnYes  = document.getElementById('btn-music-yes');
+    var btnNo   = document.getElementById('btn-music-no');
 
-<script>(function() {
-    var MUSIC_PREF_KEY = "MUSIC_PREF_INVITACION_PADDEL_2025";
+    if (!overlay || !audio || !btnYes || !btnNo) {
+        return;
+    }
 
-    function getMusicPreference() { ... }
-    function setMusicPreference(value) { ... }
+    var STORAGE_KEY = 'INVITACION_MUSICA_V1';
 
-    window.addEventListener("load", function() {
-        var overlay = document.getElementById("music-overlay");
-        var audio   = document.getElementById("bg-music");
-        var btnYes  = document.getElementById("btn-music-yes");
-        var btnNo   = document.getElementById("btn-music-no");
-
-        if (!overlay || !audio || !btnYes || !btnNo) {
-            return;
+    function guardarPreferencia(valor) {
+        try {
+            localStorage.setItem(STORAGE_KEY, valor);
+        } catch (e) {
+            // Si localStorage falla, simplemente no guardamos
+            console.warn('No se pudo guardar preferencia de música:', e);
         }
+    }
 
-        function cerrarOverlay() {
-            overlay.classList.add("hidden");
-            document.body.classList.remove("no-scroll");
+    function leerPreferencia() {
+        try {
+            return localStorage.getItem(STORAGE_KEY);
+        } catch (e) {
+            return null;
         }
+    }
 
-        function reproducirMusica() {
-            audio.volume = 0.3;
-            audio.play().catch(function(err) {
-                console.log("No se pudo reproducir el audio:", err);
+    function cerrarOverlay() {
+        overlay.classList.add('hidden');      // requiere .hidden { display:none !important; }
+        document.body.classList.remove('no-scroll');
+    }
+
+    function iniciarMusica() {
+        audio.volume = 0.25;  // volumen bajo
+        audio.currentTime = 0;
+        var playPromise = audio.play();
+        if (playPromise && playPromise.catch) {
+            playPromise.catch(function (err) {
+                console.log('No se pudo reproducir el audio:', err);
             });
         }
+    }
 
-        var pref = getMusicPreference();
+    // 1) Revisar si ya hay preferencia guardada
+    var pref = leerPreferencia();
 
-        if (pref === "play") {
-            cerrarOverlay();
-            reproducirMusica();
-            return;
-        }
+    if (pref === 'play') {
+        // El usuario ya aceptó antes → arrancamos música y no mostramos overlay
+        cerrarOverlay();
+        iniciarMusica();
+        return;
+    }
 
-        if (pref === "mute") {
-            cerrarOverlay();
-            return;
-        }
+    if (pref === 'mute') {
+        // El usuario ya rechazó antes → no mostramos overlay
+        cerrarOverlay();
+        return;
+    }
 
-        document.body.classList.add("no-scroll");
+    // 2) Si NO hay preferencia, mostramos el overlay y bloqueamos scroll
+    document.body.classList.add('no-scroll');
+    overlay.classList.remove('hidden'); // por si viene con hidden
 
-        btnYes.addEventListener("click", function() {
-            setMusicPreference("play");
-            cerrarOverlay();
-            reproducirMusica();
-        });
-
-        btnNo.addEventListener("click", function() {
-            setMusicPreference("mute");
-            cerrarOverlay();
-        });
+    // 3) Eventos de los botones
+    btnYes.addEventListener('click', function () {
+        guardarPreferencia('play');
+        iniciarMusica();
+        cerrarOverlay();
     });
-})();	
+
+    btnNo.addEventListener('click', function () {
+        guardarPreferencia('mute');
+        cerrarOverlay();
+    });
+});
 </script>
+
 
 
 </body>

@@ -1,4 +1,4 @@
-<style>
+
     /* FONDO A PANTALLA COMPLETA CON IMAGEN */
     #music-overlay {
         position: fixed !important;
@@ -23,6 +23,14 @@
     body.no-scroll {
         overflow: hidden;
     }
+
+
+#music-overlay.hidden {
+    display: none !important;
+}
+.no-scroll {
+    overflow: hidden;
+}
 
     .music-dialog {
         background: rgba(255, 255, 255, 0.95);
@@ -99,4 +107,4 @@
     .hidden {
         display: none !important;
     }
-</style>
+

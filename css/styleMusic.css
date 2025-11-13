@@ -1,4 +1,8 @@
 
+html, body {
+    overscroll-behavior-y: contain;
+}
+
     /* FONDO A PANTALLA COMPLETA CON IMAGEN */
     #music-overlay {
         position: fixed !important;

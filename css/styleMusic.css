@@ -1,6 +1,35 @@
-
 html, body {
-    overscroll-behavior-y: contain;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* El body deja de scrollear, el scroll lo hará un contenedor interno */
+body {
+    overflow: hidden;
+}
+
+/* Contenedor principal con scroll */
+.page-scroll {
+    height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* scroll fluido en móviles */
+    overscroll-behavior-y: contain;    /* evita pull-to-refresh en muchos navegadores */
+}
+
+/* Cuando mostramos el overlay, también bloqueamos el scroll del contenedor */
+.no-scroll .page-scroll {
+    overflow: hidden;
+}
+
+/* Ya la tienes, pero te la dejo aquí por claridad */
+.no-scroll {
+    overflow: hidden;
+}
+
+/* Ya la tienes en tu CSS, pero es importante que exista */
+#music-overlay.hidden {
+    display: none !important;
 }
 
     /* FONDO A PANTALLA COMPLETA CON IMAGEN */

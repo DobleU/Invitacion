@@ -89,12 +89,12 @@
     transform: translate(-50%, -30%);
     text-align: center;
     color: #ffffff;
- text-shadow:
+/* text-shadow:
         0 0 8px rgba(255,255,255,1),
         0 0 14px rgba(255,255,255,0.9),
-        0 0 22px rgba(255,255,255,0.8);
+        0 0 22px rgba(255,255,255,0.8);*/
     max-width: 90%;
-    z-index: 4;
+    z-index: 500;
 
     opacity: 0;
     animation: heroTextIn 1s ease-out forwards;
@@ -111,9 +111,9 @@
 }
 
 .hero-subtitle {
-    font-family: "BohemiaItalic", serif;
-    font-size: 2.4rem;           /* DOBLE */
-    font-weight: 400;
+    font-family: "BohemiaBold", serif;
+    font-size: 3.4rem;           /* DOBLE */
+    font-weight: 600;
     margin-bottom: 0.6rem;
 	color: #6e0b98;
 }
@@ -123,6 +123,19 @@
     font-size: 1.9rem;           /* DOBLE */
     font-weight: 400;
 color: #6e0b98;
+}
+
+   .hero-text h1,
+    .hero-subtitle,
+    .hero-subtitle-small {
+        color: #18557c;         /* texto azul oscuro */
+        text-shadow: none;      /* sin brillos que lo laven */
+    }
+.hero-text h1,
+.hero-subtitle,
+.hero-subtitle-small {
+    text-shadow:
+        8px 8px 8px rgba(255,255,255,1);
 }
 
 /* Animación de las nubes (parallax lento) */
@@ -221,9 +234,11 @@ color: #6e0b98;
         transform: translate(-50%, -55%) !important;
     }
 }
-/* ================================
-   PORTADA EN MÓVIL – TEXTO ABAJO DERECHA (centrado)
-   ================================ */
+
+
+/* ======================================
+   PORTADA EN MÓVIL – TARJETA SUPERIOR CENTRADA
+   ====================================== */
 @media (max-width: 768px) {
 
     .hero-character {
@@ -235,46 +250,80 @@ color: #6e0b98;
     }
 
     .hero-text {
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
-
-        bottom: 6% !important;
-        right: 6% !important;
-
-        text-align: center !important;   /* ← CENTRADO */
-        max-width: 70%;
-        padding: 0 10px;
-    }
-
-    .hero-text h1 {
-        font-size: 4rem !important;
-        line-height: 1.1;
-    }
-
-    .hero-subtitle {
-        font-size: 2rem !important;
-        margin-bottom: 0.4rem;
-    }
-
-    .hero-subtitle-small {
-        font-size: 1.7rem !important;
-        line-height: 1.4;
-    }
-
-    /* Recuadro translúcido */
-    .hero-text {
         position: absolute;
+
+        /* CUADRO CENTRADO ARRIBA */
+        top: 8% !important;              /* ← Ajusta altura */
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+
+        text-align: center !important;
+
+        max-width: 85%;                  /* Cuadro más estrecho */
+        padding: 1.5rem 1.5rem;
         z-index: 4;
     }
 
     .hero-text::before {
         content: "";
         position: absolute;
-        inset: -1rem -1.2rem;   /* un poco más amplio para lucir mejor */
-        background: rgba(255, 255, 255, 0.6);
-        border-radius: 18px;
+        inset: 0;                        /* Ajusta al tamaño */
+        /*background: rgba(255,255,255,0.85);*/  /* Blanco translúcido */
+        border-radius: 22px;
+        backdrop-filter: blur(2px);
         z-index: -1;
+    }
+
+    /* Tamaños del texto */
+    .hero-text h1 {
+        font-size: 3.2rem !important;
+        line-height: 1.1;
+    }
+
+    .hero-subtitle {
+        font-size: 2.1rem !important;
+        margin-bottom: 0.4rem;
+		
+    }
+
+    .hero-subtitle-small {
+		
+        font-size: 2.3rem !important;
+        line-height: 1.4;
+    }
+}
+
+/* ================================
+   PORTADA EN MÓVIL – TÍTULO ARRIBA, SUBTÍTULOS ABAJO
+   ================================ */
+@media (max-width: 768px) {
+
+    .hero-text {
+        position: absolute;
+        top: 8%;                    /* título en la parte alta */
+        left: 50%;
+        transform: translateX(-50%);
+         width: 90%;          /* ← ocupa el 90% del viewport */
+        max-width: 90%;      /* por si había un max-width anterior */
+        text-align: center;
+        z-index: 4;
+    }
+
+    .hero-text h1 {
+        margin-bottom: 0.5rem;      /* separación normal del título */
+        font-size: 3.2rem;          /* ajuste a gusto */
+    }
+
+    /* BAJAR los subtítulos a la zona celeste clara */
+    .hero-subtitle {
+        margin-top: 6rem;           /* mueve el bloque hacia abajo */
+        font-size: 1.9rem;
+    }
+
+    .hero-subtitle-small {
+        margin-top: 0.4rem;
+        font-size: 1.5rem;
+        line-height: 1.4;
     }
 }
 
@@ -322,7 +371,7 @@ color: #6e0b98;
     }
 
     .hero-subtitle-small {
-        font-size: 1.6rem;
+        font-size: 2.6rem;
         line-height: 1.4;
     }
 }

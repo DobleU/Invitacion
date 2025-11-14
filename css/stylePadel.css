@@ -107,7 +107,7 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     margin-bottom: 0.6rem;
-	color: #487fa3;
+	color: #18557c;
 }
 
 .hero-subtitle {
@@ -115,14 +115,14 @@
     font-size: 2.4rem;           /* DOBLE */
     font-weight: 400;
     margin-bottom: 0.6rem;
-	color: #6198bc;
+	color: #6e0b98;
 }
 
 .hero-subtitle-small {
     font-family: "BohemiaItalic", serif;
     font-size: 1.9rem;           /* DOBLE */
     font-weight: 400;
-color: #6198bc;
+color: #6e0b98;
 }
 
 /* Animación de las nubes (parallax lento) */
@@ -221,22 +221,30 @@ color: #6198bc;
         transform: translate(-50%, -55%) !important;
     }
 }
-
 /* ================================
-   FIX RÁPIDO PORTADA EN MÓVIL
+   PORTADA EN MÓVIL – TEXTO ABAJO DERECHA (centrado)
    ================================ */
 @media (max-width: 768px) {
 
-    /* Mover la imagen portada01 (Pooh) para que se vea en el centro */
     .hero-character {
         object-position: bottom center !important;
     }
 
-    /* Subir el texto y hacerlo más grande en móvil */
+    .hero-bg {
+        object-position: top center !important;
+    }
+
     .hero-text {
-        top: 45% !important;
-        transform: translate(-50%, -55%) !important;
-        padding: 0 18px;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+
+        bottom: 6% !important;
+        right: 6% !important;
+
+        text-align: center !important;   /* ← CENTRADO */
+        max-width: 70%;
+        padding: 0 10px;
     }
 
     .hero-text h1 {
@@ -245,14 +253,81 @@ color: #6198bc;
     }
 
     .hero-subtitle {
-        font-size: 2.0rem !important;
+        font-size: 2rem !important;
+        margin-bottom: 0.4rem;
     }
 
     .hero-subtitle-small {
         font-size: 1.7rem !important;
         line-height: 1.4;
     }
+
+    /* Recuadro translúcido */
+    .hero-text {
+        position: absolute;
+        z-index: 4;
+    }
+
+    .hero-text::before {
+        content: "";
+        position: absolute;
+        inset: -1rem -1.2rem;   /* un poco más amplio para lucir mejor */
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 18px;
+        z-index: -1;
+    }
 }
+
+
+/* ======================================
+   PORTADA EN ESCRITORIO – TARJETA CENTRADA
+   ====================================== */
+@media (min-width: 769px) {
+
+    .hero-text {
+        position: absolute;
+        top: 50%;                        /* centrado vertical */
+        left: 50%;                       /* centrado horizontal */
+        transform: translate(-50%, -50%);
+
+        text-align: center;
+        max-width: 600px;                /* ← controla el ancho del cuadro */
+        width: 90%;                      /* adaptable pero limitado */
+        padding: 2rem 2.5rem;            /* espacio interno elegante */
+
+        z-index: 4;
+    }
+
+    /* Fondo blanco translúcido */
+    .hero-text::before {
+        content: "";
+        position: absolute;
+        inset: 0;                        /* ajusta al tamaño del bloque */
+        /*background: rgba(255,255,255,0.65);*/  /* 65% translúcido */
+        backdrop-filter: blur(3px);      /* efecto vidrio suave (opcional) */
+        border-radius: 24px;             /* bordes redondeados */
+        z-index: -1;
+    }
+
+    /* Ajuste visual de tamaños */
+    .hero-text h1 {
+        font-size: 4.6rem;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+        font-size: 2.2rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .hero-subtitle-small {
+        font-size: 1.6rem;
+        line-height: 1.4;
+    }
+}
+
+
 
 
 /* Estilos específicos de la página */
